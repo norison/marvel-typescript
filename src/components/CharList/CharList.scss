@@ -1,26 +1,29 @@
 @import "../../styles/base/variables";
 
 .char-list {
-  max-width: 650px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  margin-right: 25px;
+  &__list {
+    max-width: 650px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-right: 25px;
+  }
 
   &__item {
     max-width: 200px;
     min-height: 318px;
     margin-bottom: 30px;
     background-color: $secondary-dark-color;
+    cursor: pointer;
   }
 
   &__img {
-    width: 100%;
-    object-fit: cover;
+    width: 200px;
+    height: 200px;
   }
 
   &__name {

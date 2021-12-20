@@ -18,7 +18,14 @@ const CharList: React.FC = () => {
     return items;
   };
 
-  return <ul className="char-list">{getLiItems()}</ul>;
+  return (
+    <div className="char-list">
+      <ul className="char-list__list">{getLiItems()}</ul>
+      <button className="char-list__btn button button__main button__long">
+        <div className="inner">load more</div>
+      </button>
+    </div>
+  );
 };
 
 export default CharList;
