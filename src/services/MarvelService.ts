@@ -1,40 +1,12 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import MarvelApiData from "./models/MarvelApiData";
-import MarvelCharacter from "./models/MarvelCharacter";
+import MarvelApiCharacter from "./models/MarvelCharacter";
 
 interface MarvelApiCharactersResponse {
   code: string;
   status: string;
   data: MarvelApiData;
-  results: MarvelCharacter[];
-}
-
-class MarvelCharactersRequestConfig {
-  constructor(public params: MarvelParamsBase) {}
-}
-
-class MarvelParamsBase {
-  constructor(public apikey: string) {}
-}
-
-class MarvelCharactersParams extends MarvelParamsBase {
-  constructor(
-    public apikey: string,
-    public limit?: number,
-    public offset?: number
-  ) {
-    super(apikey);
-  }
-}
-
-class MarvelCharacterParams extends MarvelParamsBase {
-  constructor(
-    public apikey: string,
-    public limit?: number,
-    public offset?: number
-  ) {
-    super(apikey);
-  }
+  results: MarvelApiCharacter[];
 }
 
 export default class MarvelService {
@@ -45,21 +17,19 @@ export default class MarvelService {
     baseURL: this._baseUrl,
   });
 
-  public async getAllCharacters(): Promise<MarvelCharacter[]> {
-    const params = new MarvelCharactersParams(this._apiKey, 9, 0);
-    const requestConfig = new MarvelCharactersRequestConfig(params);
+  public async getAllCharacters(): Promise<MarvelApiCharacter[]> {
     const response = await this._axios.get<
       AxiosResponse<MarvelApiCharactersResponse>
-    >(this._charactersUrl, requestConfig);
+    >(this._charactersUrl, {
+      params: { apikey: this._apiKey, limit: 9, offset: 0 },
+    });
     return response.data.data.results;
   }
 
-  public async getCharacter(id: number): Promise<MarvelCharacter> {
-    const params = new MarvelCharacterParams(this._apiKey, id);
-    const requestConfig = new MarvelCharactersRequestConfig(params);
+  public async getCharacter(id: number): Promise<MarvelApiCharacter> {
     const response = await this._axios.get<
       AxiosResponse<MarvelApiCharactersResponse>
-    >(this._charactersUrl, requestConfig);
+    >(this._charactersUrl, { params: { apikey: this._apiKey, id } });
     return response.data.data.results[0];
   }
 }
