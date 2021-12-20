@@ -1,31 +1,62 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
+import MarvelService, { MarvelCharacter } from "../../services/MarvelService";
+import Spinner from "../Spinner/Spinner";
 
-import loki from "../../img/loki.png";
 import "./CharList.scss";
 
-const CharList: React.FC = () => {
-  const getLiItems = () => {
-    const items: React.ReactNode[] = [];
+interface CharListProps {
+  service: MarvelService;
+}
 
-    for (let i = 0; i < 9; i++) {
-      items.push(
-        <li key={Math.random()} className="char-list__item">
-          <img src={loki} alt="loki" className="char-list__img" />
-          <div className="char-list__name">loki</div>
-        </li>
-      );
+const CharList: React.FC<CharListProps> = ({ service }) => {
+  const [characters, setCharacters] = useState<MarvelCharacter[]>();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoading(() => true);
+        const characters = await service.getAllCharacters();
+        setCharacters(() => characters);
+        setLoading(() => false);
+      } catch {
+        console.log("Error");
+      }
     }
-    return items;
-  };
 
-  return (
-    <div className="char-list">
-      <ul className="char-list__list">{getLiItems()}</ul>
-      <button className="char-list__btn button button__main button__long">
-        <div className="inner">load more</div>
-      </button>
-    </div>
-  );
+    fetchData();
+  }, []);
+
+  let content: React.ReactFragment;
+
+  if (loading) {
+    content = <Spinner />;
+  } else {
+    content = (
+      <>
+        <ul className="char-list__list">
+          {characters?.map((character) => {
+            return (
+              <li key={character.id} className="char-list__item">
+                <img
+                  src={character.thumbnail}
+                  alt="character"
+                  className="char-list__img"
+                />
+                <div className="char-list__name">{character.name}</div>
+              </li>
+            );
+          })}
+        </ul>
+        <button className="char-list__btn button button__main button__long">
+          <div className="inner">load more</div>
+        </button>
+      </>
+    );
+  }
+
+  return <div className="char-list">{content}</div>;
 };
 
 export default CharList;
