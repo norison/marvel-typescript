@@ -30,7 +30,8 @@ const RandomChar: React.FC = () => {
       </div>
       <div className="random__choose">
         <div className="random__title">
-          Random character for today!<br/>
+          Random character for today!
+          <br />
           Do you want to get to know him better?
         </div>
         <div className="random__title">Or choose another one</div>
