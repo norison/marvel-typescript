@@ -1,0 +1,56 @@
+@import "../../styles/base/variables";
+
+.header {
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__home {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 33px;
+    color: #000000;
+    text-decoration: none;
+
+    span {
+      color: $main-color;
+    }
+
+    &:hover {
+      color: black;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__link,
+  &__divider {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+    text-decoration: none;
+  }
+
+  &__link {
+    &_active {
+      color: $main-color;
+    }
+
+    &:hover {
+      color: $main-color;
+    }
+  }
+
+  &__divider {
+    margin: 0 8px;
+  }
+}
