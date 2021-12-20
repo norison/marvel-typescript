@@ -1,4 +1,5 @@
 import React from "react";
+import CharContent from "../CharContent/CharContent";
 import Header from "../Header/Header";
 import RandomChar from "../RandomChar/RandomChar";
 
@@ -8,6 +9,7 @@ const App: React.FC = () => {
       <div className="container">
         <Header />
         <RandomChar />
+        <CharContent />
       </div>
     </div>
   );
