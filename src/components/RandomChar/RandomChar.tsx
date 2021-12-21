@@ -1,50 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
+import { useMarvelService } from "../../hooks/marvel.hook";
 import mjolnir from "../../img/mjolnir.png";
-import MarvelService, { MarvelCharacter } from "../../services/MarvelService";
+import { MarvelCharacter } from "../../services/MarvelService";
 import ErrorMessage from "../ErrorMessage/ErrorMessge";
 import Spinner from "../Spinner/Spinner";
 
 import "./RandomChar.scss";
 
-interface RandomCharProps {
-  service: MarvelService;
-}
-
-const RandomChar: React.FC<RandomCharProps> = ({ service }) => {
+const RandomChar: React.FC = () => {
   const [character, setCharacter] = useState<MarvelCharacter>();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
+  const { loading, error, getCharacter } = useMarvelService();
 
   useEffect(() => {
     updateCharacterHandler();
   }, []);
 
-  const enableError = () => {
-    setError(true);
-    setLoading(false);
-  };
-
-  const enableLoading = () => {
-    setError(false);
-    setLoading(true);
-  };
-
-  const enableView = (character: MarvelCharacter) => {
-    setError(false);
-    setLoading(false);
-    setCharacter(character);
-  };
-
   const updateCharacterHandler = async () => {
-    try {
-      enableLoading();
-      const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-      const character = await service.getCharacter(id);
-      enableView(character);
-    } catch {
-      enableError();
-    }
+    const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
+    setCharacter(await getCharacter(id));
   };
 
   const getContent = (character: MarvelCharacter) => {

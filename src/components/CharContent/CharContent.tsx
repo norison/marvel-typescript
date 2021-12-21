@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import MarvelService, { MarvelCharacter } from "../../services/MarvelService";
+import { MarvelCharacter } from "../../services/MarvelService";
 import CharInfo from "../CharInfo/CharInfo";
 import CharList from "../CharList/CharList";
 
 import "./CharContent.scss";
 
-interface CharContentProps {
-  service: MarvelService;
-}
-
-const CharContent: React.FC<CharContentProps> = ({ service }) => {
+const CharContent: React.FC = () => {
   const [character, setCharacter] = useState<MarvelCharacter>();
 
   const characterSelectHandler = (character: MarvelCharacter) => {
@@ -18,7 +14,7 @@ const CharContent: React.FC<CharContentProps> = ({ service }) => {
 
   return (
     <section className="char-content">
-      <CharList service={service} onCharacterSelect={characterSelectHandler} />
+      <CharList onCharacterSelect={characterSelectHandler} />
       <CharInfo character={character!} />
     </section>
   );
