@@ -1,0 +1,26 @@
+@import "../../styles/base/variables";
+
+.comic-banner {
+  margin-top: 50px;
+  height: 100px;
+  background-color: $secondary-dark-color;
+  display: grid;
+  grid-template-columns: 280px 235px auto;
+
+  &__img {
+    padding-left: 45px;
+  }
+
+  &__text {
+    margin: 18px 0;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: #ffffff;
+  }
+
+  &__logo {
+    margin-left: auto;
+    padding-right: 25px;
+  }
+}

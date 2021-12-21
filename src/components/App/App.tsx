@@ -2,6 +2,7 @@ import React from "react";
 import CharContent from "../CharContent/CharContent";
 import Header from "../Header/Header";
 import RandomChar from "../RandomChar/RandomChar";
+import ComicBanner from "../ComicBanner/ComicBanner";
 
 import vision from "../../img/vision.png";
 
@@ -12,9 +13,10 @@ const App: React.FC = () => {
     <div className="app">
       <div className="container">
         <Header />
-        <RandomChar />
+        <ComicBanner />
+        {/* <RandomChar />
         <CharContent />
-        <img src={vision} alt="vision" className="app__img" />
+        <img src={vision} alt="vision" className="app__img" /> */}
       </div>
     </div>
   );
