@@ -48,16 +48,15 @@ const View: React.FC<CharInfoProps> = ({ character }) => {
       <div className="char-info__descr">{character.description}</div>
       <div className="char-info__title">Comics:</div>
       <ul className="char-info__list">
-        <li className="char-info__item">
-          <a href="#" className="char-info__link-comics">
-            All-Winners Squad: Band of Heroes (2011) #3
-          </a>
-        </li>
-        <li className="char-info__item">
-          <a href="#" className="char-info__link-comics">
-            Alpha Flight (1983) #50
-          </a>
-        </li>
+        {character.comics.map((comic, index) => {
+          return (
+            <li key={index} className="char-info__item">
+              <a href={comic.resourceURI} className="char-info__link-comics">
+                {comic.name}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </>
   );

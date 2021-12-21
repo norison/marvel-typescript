@@ -15,7 +15,7 @@ const App: React.FC = () => {
     <div className="app">
       <div className="container">
         <Header />
-        <RandomChar />
+        <RandomChar service={marvelService} />
         <CharContent service={marvelService} />
         <img src={vision} alt="vision" className="app__img" />
       </div>

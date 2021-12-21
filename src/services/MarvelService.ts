@@ -21,6 +21,14 @@ interface MarvelCharactersResponse {
             url: string;
           }
         ];
+        comics: {
+          items: [
+            {
+              resourceURI: string;
+              name: string;
+            }
+          ];
+        };
       }
     ];
   };
@@ -33,6 +41,12 @@ export interface MarvelCharacter {
   thumbnail: string;
   homepage: string;
   wiki: string;
+  comics: [
+    {
+      resourceURI: string;
+      name: string;
+    }
+  ];
 }
 
 export default class MarvelService {
@@ -73,6 +87,7 @@ export default class MarvelService {
       thumbnail: `${item.thumbnail.path}.${item.thumbnail.extension}`,
       homepage: item.urls[0].url,
       wiki: item.urls[1].url,
+      comics: item.comics.items,
     }));
   }
 }

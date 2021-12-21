@@ -25,9 +25,8 @@ const CharList: React.FC<CharListProps> = ({ service, onCharacterSelect }) => {
     async function fetchData() {
       try {
         enableLoading();
-        //const characters = await service.getAllCharacters();
-        throw new Error("Hello");
-        //enableView(characters);
+        const characters = await service.getAllCharacters();
+        enableView(characters);
       } catch {
         enableError();
       }
