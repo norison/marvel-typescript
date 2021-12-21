@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import MarvelService, { MarvelCharacter } from "../../services/MarvelService";
 import ErrorMessage from "../ErrorMessage/ErrorMessge";
 import Spinner from "../Spinner/Spinner";
@@ -13,7 +13,7 @@ interface CharListProps {
 
 interface ViewProps {
   characters: MarvelCharacter[];
-  onCharacterSelect: (id: number) => void;
+  onCharacterSelect: (character: MarvelCharacter) => void;
 }
 
 const CharList: React.FC<CharListProps> = ({ service, onCharacterSelect }) => {
@@ -34,13 +34,6 @@ const CharList: React.FC<CharListProps> = ({ service, onCharacterSelect }) => {
 
     fetchData();
   }, []);
-
-  const characterSelectedHandler = (id: number) => {
-    const char = characters?.find((item) => item.id === id);
-    if (char) {
-      onCharacterSelect(char);
-    }
-  };
 
   const enableError = () => {
     setError(() => true);
@@ -66,10 +59,7 @@ const CharList: React.FC<CharListProps> = ({ service, onCharacterSelect }) => {
     content = <ErrorMessage />;
   } else if (characters) {
     content = (
-      <View
-        characters={characters}
-        onCharacterSelect={characterSelectedHandler}
-      />
+      <View characters={characters} onCharacterSelect={onCharacterSelect} />
     );
   }
 
@@ -77,15 +67,30 @@ const CharList: React.FC<CharListProps> = ({ service, onCharacterSelect }) => {
 };
 
 const View: React.FC<ViewProps> = ({ characters, onCharacterSelect }) => {
+  const itemsRef = useRef<HTMLLIElement[]>([]);
+
+  const characterSelectHandler = (
+    character: MarvelCharacter,
+    index: number
+  ) => {
+    itemsRef.current.forEach((item) =>
+      item.classList.remove("char-list__item_selected")
+    );
+    itemsRef.current[index].classList.add("char-list__item_selected");
+    itemsRef.current[index].focus();
+    onCharacterSelect(character);
+  };
+
   return (
     <>
       <ul className="char-list__list">
-        {characters.map((character) => {
+        {characters.map((character, index) => {
           return (
             <li
-              onClick={onCharacterSelect.bind(null, character.id)}
+              onClick={characterSelectHandler.bind(null, character, index)}
               key={character.id}
               className="char-list__item"
+              ref={(item) => (itemsRef.current[index] = item!)}
             >
               <img
                 src={character.thumbnail}

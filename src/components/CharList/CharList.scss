@@ -18,6 +18,13 @@
     min-height: 318px;
     background-color: $secondary-dark-color;
     cursor: pointer;
+    transition: .3s all;
+    
+    &_selected,
+    &:hover {
+      box-shadow: 0 5px 20px $main-color;
+      transform: translateY(-8px);
+    }
   }
 
   &__img {
