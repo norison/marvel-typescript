@@ -15,13 +15,14 @@ const CharList: React.FC<CharListProps> = ({ service, onCharacterSelect }) => {
   const [characters, setCharacters] = useState<MarvelCharacter[]>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+  const [offset, setOffset] = useState<number>(0);
   const itemsRef = useRef<HTMLLIElement[]>([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
         enableLoading();
-        const characters = await service.getAllCharacters();
+        const characters = await service.getAllCharacters(9, offset);
         enableView(characters);
       } catch {
         enableError();
@@ -45,6 +46,22 @@ const CharList: React.FC<CharListProps> = ({ service, onCharacterSelect }) => {
     setError(false);
     setLoading(false);
     setCharacters(characters);
+  };
+
+  const loadMoreHandler = async () => {
+    try {
+      const newOffset = offset + 9;
+      const newCharacters = await service.getAllCharacters(9, newOffset);
+      setOffset(newOffset);
+      setCharacters((characters) => {
+        if (characters) {
+          return [...characters, ...newCharacters];
+        }
+        return newCharacters;
+      });
+    } catch {
+      console.log("Failed");
+    }
   };
 
   const characterSelectHandler = (
@@ -81,7 +98,10 @@ const CharList: React.FC<CharListProps> = ({ service, onCharacterSelect }) => {
             );
           })}
         </ul>
-        <button className="char-list__btn button button__main button__long">
+        <button
+          onClick={loadMoreHandler}
+          className="char-list__btn button button__main button__long"
+        >
           <div className="inner">load more</div>
         </button>
       </>

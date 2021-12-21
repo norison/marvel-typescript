@@ -57,11 +57,14 @@ export default class MarvelService {
     baseURL: this._baseUrl,
   });
 
-  public async getAllCharacters(): Promise<MarvelCharacter[]> {
+  public async getAllCharacters(
+    limit: number = 9,
+    offset: number = 0
+  ): Promise<MarvelCharacter[]> {
     const response = await this._axios.get<MarvelCharactersResponse>(
       this._charactersUrl,
       {
-        params: { apikey: this._apiKey, limit: 9, offset: 0 },
+        params: { apikey: this._apiKey, limit, offset },
       }
     );
     return this.mapResponseToCharacters(response.data);
