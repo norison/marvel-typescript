@@ -7,6 +7,7 @@ import ComicBanner from "../ComicBanner/ComicBanner";
 import vision from "../../img/vision.png";
 
 import "./App.scss";
+import ComicList from "../ComicList/ComicList";
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
       <div className="container">
         <Header />
         <ComicBanner />
+        <ComicList />
         {/* <RandomChar />
         <CharContent />
         <img src={vision} alt="vision" className="app__img" /> */}
