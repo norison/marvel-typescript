@@ -1,5 +1,8 @@
 import { useState, useMemo } from "react";
-import MarvelService, { MarvelCharacter } from "../services/MarvelService";
+import MarvelService, {
+  MarvelCharacter,
+  MarvelComic,
+} from "../services/MarvelService";
 
 export const useMarvelService = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -10,7 +13,7 @@ export const useMarvelService = () => {
   }, []);
 
   const getCharacters = async (limit: number, offset: number) => {
-    let characters: MarvelCharacter[] | undefined;
+    let characters: MarvelCharacter[] = [];
 
     try {
       enableLoading();
@@ -37,6 +40,20 @@ export const useMarvelService = () => {
     return character;
   };
 
+  const getComics = async (limit: number, offset: number) => {
+    let comics: MarvelComic[] | undefined;
+
+    try {
+      enableLoading();
+      comics = await marvelService.getComics(limit, offset);
+      disableLoading();
+    } catch {
+      enableError();
+    }
+
+    return comics;
+  };
+
   const enableLoading = () => {
     setLoading(true);
     setError(false);
@@ -51,5 +68,5 @@ export const useMarvelService = () => {
     setLoading(false);
   };
 
-  return { loading, error, getCharacters, getCharacter };
+  return { loading, error, getCharacters, getCharacter, getComics };
 };
