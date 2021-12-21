@@ -1,5 +1,5 @@
-import React from "react";
-import MarvelService from "../../services/MarvelService";
+import React, { useState } from "react";
+import MarvelService, { MarvelCharacter } from "../../services/MarvelService";
 import CharInfo from "../CharInfo/CharInfo";
 import CharList from "../CharList/CharList";
 
@@ -10,10 +10,16 @@ interface CharContentProps {
 }
 
 const CharContent: React.FC<CharContentProps> = ({ service }) => {
+  const [character, setCharacter] = useState<MarvelCharacter>();
+
+  const characterSelectHandler = (character: MarvelCharacter) => {
+    setCharacter(() => character);
+  };
+
   return (
     <section className="char-content">
-      <CharList service={service} />
-      <CharInfo />
+      <CharList service={service} onCharacterSelect={characterSelectHandler} />
+      <CharInfo character={character!} />
     </section>
   );
 };
