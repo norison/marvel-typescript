@@ -1,6 +1,6 @@
 import React from "react";
-import { MarvelCharacter } from "../../services/MarvelService";
-import Skeleton from "../Skeleton/Skeleton";
+import { MarvelCharacter } from "../../../services/MarvelService";
+import Skeleton from "../../Skeleton/Skeleton";
 
 import "./CharInfo.scss";
 

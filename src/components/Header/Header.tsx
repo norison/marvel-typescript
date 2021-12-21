@@ -1,26 +1,27 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
 import "./Header.scss";
 
 const Header: React.FC = () => {
   return (
     <header className="header">
-      <a href="#" className="header__home">
+      <Link to="/" className="header__home">
         <span>Marvel</span> information portal
-      </a>
+      </Link>
       <nav className="header__nav">
         <ul className="header__menu">
           <li className="header__item">
-            <a href="#" className="header__link header__link_active">
+            <NavLink exact activeClassName="header__link_active" to="/" className="header__link">
               Characters
-            </a>
+            </NavLink>
           </li>
           <div className="header__divider">/</div>
           <li className="header__item">
-            <a href="#" className="header__link">
+            <NavLink exact activeClassName="header__link_active" to="/comics" className="header__link">
               Comics
-            </a>
+            </NavLink>
           </li>
         </ul>
       </nav>
