@@ -38,6 +38,8 @@ const CharList: React.FC<CharListProps> = ({ onCharacterSelect }) => {
           setCharactersEnded(true);
         }
       }
+
+      setNewLoading(false);
     });
   };
 
@@ -76,6 +78,7 @@ const CharList: React.FC<CharListProps> = ({ onCharacterSelect }) => {
           })}
         </ul>
         <button
+          disabled={newLoading}
           style={{ display: charactersEnded ? "none" : "block" }}
           onClick={requestCharactersHandler.bind(null, false)}
           className="char-list__btn button button__main button__long"
