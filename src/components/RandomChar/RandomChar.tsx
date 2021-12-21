@@ -11,10 +11,6 @@ interface RandomCharProps {
   service: MarvelService;
 }
 
-interface ViewProps {
-  character: MarvelCharacter;
-}
-
 const RandomChar: React.FC<RandomCharProps> = ({ service }) => {
   const [character, setCharacter] = useState<MarvelCharacter>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -51,6 +47,32 @@ const RandomChar: React.FC<RandomCharProps> = ({ service }) => {
     }
   };
 
+  const getContent = (character: MarvelCharacter) => {
+    return (
+      <>
+        <img src={character.thumbnail} alt="thor" className="random__img" />
+        <div className="random__wrapper">
+          <div className="random__name">{character.name}</div>
+          <div className="random__descr">{character.description}</div>
+          <div className="random__links">
+            <a
+              href={character.homepage}
+              className="random__link button button__main"
+            >
+              <div className="inner">homepage</div>
+            </a>
+            <a
+              href={character.wiki}
+              className="random__link button button__secondary"
+            >
+              <div className="inner">wiki</div>
+            </a>
+          </div>
+        </div>
+      </>
+    );
+  };
+
   let content;
 
   if (loading) {
@@ -58,7 +80,7 @@ const RandomChar: React.FC<RandomCharProps> = ({ service }) => {
   } else if (error) {
     content = <ErrorMessage />;
   } else if (character) {
-    content = <View character={character} />;
+    content = getContent(character);
   }
 
   return (
@@ -80,32 +102,6 @@ const RandomChar: React.FC<RandomCharProps> = ({ service }) => {
         <img src={mjolnir} alt="mjolnir" className="random__decoration" />
       </div>
     </section>
-  );
-};
-
-const View: React.FC<ViewProps> = ({ character }) => {
-  return (
-    <>
-      <img src={character.thumbnail} alt="thor" className="random__img" />
-      <div className="random__wrapper">
-        <div className="random__name">{character.name}</div>
-        <div className="random__descr">{character.description}</div>
-        <div className="random__links">
-          <a
-            href={character.homepage}
-            className="random__link button button__main"
-          >
-            <div className="inner">homepage</div>
-          </a>
-          <a
-            href={character.wiki}
-            className="random__link button button__secondary"
-          >
-            <div className="inner">wiki</div>
-          </a>
-        </div>
-      </div>
-    </>
   );
 };
 

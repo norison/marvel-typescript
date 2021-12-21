@@ -11,15 +11,11 @@ interface CharListProps {
   onCharacterSelect: (character: MarvelCharacter) => void;
 }
 
-interface ViewProps {
-  characters: MarvelCharacter[];
-  onCharacterSelect: (character: MarvelCharacter) => void;
-}
-
 const CharList: React.FC<CharListProps> = ({ service, onCharacterSelect }) => {
   const [characters, setCharacters] = useState<MarvelCharacter[]>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+  const itemsRef = useRef<HTMLLIElement[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -51,24 +47,6 @@ const CharList: React.FC<CharListProps> = ({ service, onCharacterSelect }) => {
     setCharacters(() => characters);
   };
 
-  let content;
-
-  if (loading) {
-    content = <Spinner />;
-  } else if (error) {
-    content = <ErrorMessage />;
-  } else if (characters) {
-    content = (
-      <View characters={characters} onCharacterSelect={onCharacterSelect} />
-    );
-  }
-
-  return <div className="char-list">{content}</div>;
-};
-
-const View: React.FC<ViewProps> = ({ characters, onCharacterSelect }) => {
-  const itemsRef = useRef<HTMLLIElement[]>([]);
-
   const characterSelectHandler = (
     character: MarvelCharacter,
     index: number
@@ -81,32 +59,46 @@ const View: React.FC<ViewProps> = ({ characters, onCharacterSelect }) => {
     onCharacterSelect(character);
   };
 
-  return (
-    <>
-      <ul className="char-list__list">
-        {characters.map((character, index) => {
-          return (
-            <li
-              onClick={characterSelectHandler.bind(null, character, index)}
-              key={character.id}
-              className="char-list__item"
-              ref={(item) => (itemsRef.current[index] = item!)}
-            >
-              <img
-                src={character.thumbnail}
-                alt="character"
-                className="char-list__img"
-              />
-              <div className="char-list__name">{character.name}</div>
-            </li>
-          );
-        })}
-      </ul>
-      <button className="char-list__btn button button__main button__long">
-        <div className="inner">load more</div>
-      </button>
-    </>
-  );
+  const getContent = (characters: MarvelCharacter[]) => {
+    return (
+      <>
+        <ul className="char-list__list">
+          {characters.map((character, index) => {
+            return (
+              <li
+                onClick={characterSelectHandler.bind(null, character, index)}
+                key={character.id}
+                className="char-list__item"
+                ref={(item) => (itemsRef.current[index] = item!)}
+              >
+                <img
+                  src={character.thumbnail}
+                  alt="character"
+                  className="char-list__img"
+                />
+                <div className="char-list__name">{character.name}</div>
+              </li>
+            );
+          })}
+        </ul>
+        <button className="char-list__btn button button__main button__long">
+          <div className="inner">load more</div>
+        </button>
+      </>
+    );
+  };
+
+  let content;
+
+  if (loading) {
+    content = <Spinner />;
+  } else if (error) {
+    content = <ErrorMessage />;
+  } else if (characters) {
+    content = getContent(characters);
+  }
+
+  return <div className="char-list">{content}</div>;
 };
 
 export default CharList;
