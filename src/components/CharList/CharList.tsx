@@ -32,19 +32,19 @@ const CharList: React.FC<CharListProps> = ({ service, onCharacterSelect }) => {
   }, []);
 
   const enableError = () => {
-    setError(() => true);
-    setLoading(() => false);
+    setError(true);
+    setLoading(false);
   };
 
   const enableLoading = () => {
-    setError(() => false);
-    setLoading(() => true);
+    setError(false);
+    setLoading(true);
   };
 
   const enableView = (characters: MarvelCharacter[]) => {
-    setError(() => false);
-    setLoading(() => false);
-    setCharacters(() => characters);
+    setError(false);
+    setLoading(false);
+    setCharacters(characters);
   };
 
   const characterSelectHandler = (

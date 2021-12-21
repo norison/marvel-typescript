@@ -1,43 +1,53 @@
 @import "../../styles/base/variables";
 
-.random {
+.randomchar {
   margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(2, 50%);
-  height: 250px;
 
-  &__char {
+  &__block {
     padding: 35px 35px 35px 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 180px auto;
+    column-gap: 30px;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
   }
 
-  &__wrapper {
-    display: grid;
-    grid-template-rows: minmax(29px, auto) 90px 38px;
-    row-gap: 10px;
-    padding-top: 3px;
+  &__spinner {
+    width: 100%;
+    height: 250px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+    padding: 35px 35px 35px 40px;
   }
 
   &__img {
     width: 180px;
     height: 180px;
-    margin-right: 30px;
-    object-fit: cover;
+
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      margin: 0 auto;
+      object-fit: fill;
+    }
+  }
+
+  &__info {
+    display: grid;
+    grid-template-rows: 29px 90px 38px;
+    row-gap: 11px;
   }
 
   &__name {
     font-weight: 700;
     font-size: 22px;
-    color: #000000;
+    line-height: 26px;
   }
 
   &__descr {
     font-size: 14px;
     line-height: 16px;
-    color: #000000;
   }
 
   &__links {
@@ -50,9 +60,10 @@
     margin-right: 30px;
   }
 
-  &__choose {
+  &__static {
     padding: 35px 40px;
     background-color: $secondary-dark-color;
+    color: #ffffff;
     position: relative;
   }
 
@@ -60,7 +71,6 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 28px;
-    color: #ffffff;
 
     &:nth-child(2) {
       margin-top: 33px;
@@ -68,12 +78,12 @@
   }
 
   &__btn {
-    margin-top: 23.5px;
+    margin-top: 20px;
   }
 
   &__decoration {
     position: absolute;
     bottom: 14px;
-    right: -36px;
+    right: -37px;
   }
 }

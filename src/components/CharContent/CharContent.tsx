@@ -13,7 +13,7 @@ const CharContent: React.FC<CharContentProps> = ({ service }) => {
   const [character, setCharacter] = useState<MarvelCharacter>();
 
   const characterSelectHandler = (character: MarvelCharacter) => {
-    setCharacter(() => character);
+    setCharacter(character);
   };
 
   return (
