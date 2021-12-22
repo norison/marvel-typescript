@@ -27,7 +27,6 @@ const Header: React.FC = () => {
           <div className="header__divider">/</div>
           <li className="header__item">
             <NavLink
-              end
               to="/comics"
               className={({ isActive }) => getNavLinkStyle(isActive)}
             >

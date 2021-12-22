@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMarvelService } from "../../../../hooks/marvel.hook";
 import { MarvelComic } from "../../../../services/MarvelService";
 import ErrorMessage from "../../../ErrorMessage/ErrorMessge";

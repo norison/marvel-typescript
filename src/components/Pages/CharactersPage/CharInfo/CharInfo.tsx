@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { MarvelCharacter } from "../../../../services/MarvelService";
 import Skeleton from "../../../Skeleton/Skeleton";
 
@@ -38,11 +39,15 @@ const CharInfo: React.FC<CharInfoProps> = ({ character }) => {
         <div className="char-info__title">Comics:</div>
         <ul className="char-info__list">
           {character.comics.map((comic, index) => {
+            const comicId = comic.resourceURI.split("/").slice(-1);
             return (
               <li key={index} className="char-info__item">
-                <a href={comic.resourceURI} className="char-info__link-comics">
+                <Link
+                  to={`/comics/${comicId}`}
+                  className="char-info__link-comics"
+                >
                   {comic.name}
-                </a>
+                </Link>
               </li>
             );
           })}

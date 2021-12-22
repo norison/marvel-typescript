@@ -15,12 +15,12 @@ const SingleComicPage: React.FC = () => {
   const [comic, setComic] = useState<MarvelComic>();
 
   useEffect(() => {
-    if (id) {
+    if (id) {      
       getComic(+id).then((comic) => {
         setComic(comic);
       });
     }
-  }, []);
+  }, [id]);
 
   const spinner = loading ? <Spinner /> : null;
   const errorMessage = error ? <ErrorMessage /> : null;
