@@ -9,13 +9,17 @@ import { MarvelComic } from "../../../../services/MarvelService";
 import Spinner from "../../../Spinner/Spinner";
 import ErrorMessage from "../../../ErrorMessage/ErrorMessge";
 
+interface ViewProps {
+  comic: MarvelComic;
+}
+
 const SingleComicPage: React.FC = () => {
   const { id } = useParams();
   const { loading, error, getComic } = useMarvelService();
   const [comic, setComic] = useState<MarvelComic>();
 
   useEffect(() => {
-    if (id) {      
+    if (id) {
       getComic(+id).then((comic) => {
         setComic(comic);
       });
@@ -24,7 +28,7 @@ const SingleComicPage: React.FC = () => {
 
   const spinner = loading ? <Spinner /> : null;
   const errorMessage = error ? <ErrorMessage /> : null;
-  const item = comic ? getContent(comic) : null;
+  const item = comic ? <View comic={comic} /> : null;
 
   return (
     <section className="single">
@@ -35,7 +39,7 @@ const SingleComicPage: React.FC = () => {
   );
 };
 
-const getContent = (comic: MarvelComic) => {
+const View: React.FC<ViewProps> = ({ comic }) => {
   const description = comic.description
     ? comic.description
     : "There is no description";
