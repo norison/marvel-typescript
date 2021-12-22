@@ -54,6 +54,20 @@ export const useMarvelService = () => {
     return comics;
   };
 
+  const getComic = async (id: number) => {
+    let comic: MarvelComic | undefined;
+
+    try {
+      enableLoading();
+      comic = await marvelService.getComic(id);
+      disableLoading();
+    } catch {
+      enableError();
+    }
+
+    return comic;
+  };
+
   const enableLoading = () => {
     setLoading(true);
     setError(false);
@@ -68,5 +82,5 @@ export const useMarvelService = () => {
     setLoading(false);
   };
 
-  return { loading, error, getCharacters, getCharacter, getComics };
+  return { loading, error, getCharacters, getCharacter, getComics, getComic };
 };

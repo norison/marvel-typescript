@@ -124,6 +124,18 @@ export default class MarvelService {
     return this.mapComicsResponse(response.data);
   }
 
+  public async getComic(id: number): Promise<MarvelComic> {
+    const response = await this._axios.get<
+      MarvelCharactersResponse<MarvelComicResult>
+    >(this._comicsUrl, {
+      params: {
+        apikey: this._apiKey,
+        id,
+      },
+    });
+    return this.mapComicsResponse(response.data)[0];
+  }
+
   private mapCharactersResponse(
     response: MarvelCharactersResponse<MarvelCharacterResult>
   ): MarvelCharacter[] {

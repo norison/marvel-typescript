@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { Link, Outlet } from "react-router-dom";
 import { useMarvelService } from "../../../../hooks/marvel.hook";
 import { MarvelComic } from "../../../../services/MarvelService";
 import ErrorMessage from "../../../ErrorMessage/ErrorMessge";
@@ -33,28 +34,26 @@ const ComicList: React.FC = () => {
   };
 
   const getContent = () => {
+    const items = comics?.map((comic, index) => {
+      const price = comic.price === 0 ? "not available" : `${comic.price}$`;
+      return (
+        <li key={index} className="comic-list__item">
+          <Link to={`/comics/${comic.id}`} className="comic-list__link">
+            <img
+              src={comic.thumbnail}
+              alt="comic"
+              className="comic-list__img"
+            />
+            <div className="comic-list__name">{comic.title}</div>
+            <div className="comic-list__price">{price}</div>
+          </Link>
+        </li>
+      );
+    });
+
     return (
       <>
-        <ul className="comic-list__items">
-          {comics?.map((comic, index) => {
-            const price =
-              comic.price === 0 ? "not available" : `${comic.price}$`;
-
-            return (
-              <li key={index} className="comic-list__item">
-                <a href={comic.url} className="comic-list__link">
-                  <img
-                    src={comic.thumbnail}
-                    alt="comic"
-                    className="comic-list__img"
-                  />
-                  <div className="comic-list__name">{comic.title}</div>
-                  <div className="comic-list__price">{price}</div>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
+        <ul className="comic-list__items">{items}</ul>
         <button
           onClick={loadComics.bind(null, false)}
           disabled={newLoading}
@@ -76,7 +75,7 @@ const ComicList: React.FC = () => {
     content = getContent();
   }
 
-  return <div className="comic-list">{content}</div>;
+  return <section className="comic-list">{content}</section>;
 };
 
 export default ComicList;
