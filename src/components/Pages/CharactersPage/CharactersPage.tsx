@@ -1,9 +1,9 @@
 import React from "react";
 import CharContent from "./CharContent/CharContent";
 import RandomChar from "./RandomChar/RandomChar";
-import vision from "../../img/vision.png";
+import vision from "../../../img/vision.png";
 
-const Characters: React.FC = () => {
+const CharactersPage: React.FC = () => {
   return (
     <>
       <RandomChar />
@@ -13,4 +13,4 @@ const Characters: React.FC = () => {
   );
 };
 
-export default Characters;
+export default CharactersPage;

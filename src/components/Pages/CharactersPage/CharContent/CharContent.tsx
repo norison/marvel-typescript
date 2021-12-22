@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MarvelCharacter } from "../../../services/MarvelService";
+import { MarvelCharacter } from "../../../../services/MarvelService";
 import CharInfo from "../CharInfo/CharInfo";
 import CharList from "../CharList/CharList";
 

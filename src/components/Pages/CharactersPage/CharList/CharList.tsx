@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from "react";
-import { useMarvelService } from "../../../hooks/marvel.hook";
-import { MarvelCharacter } from "../../../services/MarvelService";
-import ErrorMessage from "../../ErrorMessage/ErrorMessge";
-import Spinner from "../../Spinner/Spinner";
+import { useMarvelService } from "../../../../hooks/marvel.hook";
+import { MarvelCharacter } from "../../../../services/MarvelService";
+import ErrorMessage from "../../../ErrorMessage/ErrorMessge";
+import Spinner from "../../../Spinner/Spinner";
 
 import "./CharList.scss";
 

@@ -1,6 +1,6 @@
 import React from "react";
-import avengers from "../../../img/avengers.png";
-import logo from "../../../img/avengers_logo.png";
+import avengers from "../../../../img/avengers.png";
+import logo from "../../../../img/avengers_logo.png";
 
 import "./ComicBanner.scss";
 

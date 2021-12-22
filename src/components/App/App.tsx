@@ -1,8 +1,9 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from "../Header/Header";
-import Characters from "../Characters/Characters";
-import Comics from "../Comics/Comics";
+import CharactersPage from "../Pages/CharactersPage/CharactersPage";
+import ComicsPage from "../Pages/ComicsPage/ComicsPage";
+import Page404 from "../Pages/Page404/Page404";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./App.scss";
 
@@ -13,14 +14,11 @@ const App: React.FC = () => {
         <div className="container">
           <Header />
           <main>
-            <Switch>
-              <Route exact path="/">
-                <Characters />
-              </Route>
-              <Route exact path="/comics">
-                <Comics />
-              </Route>
-            </Switch>
+            <Routes>
+              <Route path="/" element={<CharactersPage />} />
+              <Route path="/comics" element={<ComicsPage />} />
+              <Route path="*" element={<Page404 />} />
+            </Routes>
           </main>
         </div>
       </div>
