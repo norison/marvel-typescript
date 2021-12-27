@@ -88,11 +88,15 @@ export default class MarvelService {
     limit: number = 9,
     offset: number = 0
   ): Promise<MarvelCharacter[]> {
+    const params: {
+      apikey: string;
+      limit: number;
+      offset: number;
+    } = { apikey: this._apiKey, limit, offset };
+
     const response = await this._axios.get<
       MarvelCharactersResponse<MarvelCharacterResult>
-    >(this._charactersUrl, {
-      params: { apikey: this._apiKey, limit, offset },
-    });
+    >(this._charactersUrl, { params });
     return this.mapCharactersResponse(response.data);
   }
 
@@ -105,6 +109,13 @@ export default class MarvelService {
         id,
       },
     });
+    return this.mapCharactersResponse(response.data)[0];
+  }
+
+  public async getCharacterByName(name: string): Promise<MarvelCharacter> {
+    const response = await this._axios.get<
+      MarvelCharactersResponse<MarvelCharacterResult>
+    >(this._charactersUrl, { params: { apikey: this._apiKey, name } });
     return this.mapCharactersResponse(response.data)[0];
   }
 

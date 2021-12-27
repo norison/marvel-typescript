@@ -8,7 +8,7 @@ const CharactersPage: React.FC = () => {
     <>
       <RandomChar />
       <CharContent />
-      <img src={vision} alt="vision" className="app__img" />
+      {/* <img src={vision} alt="vision" className="app__img" /> */}
     </>
   );
 };

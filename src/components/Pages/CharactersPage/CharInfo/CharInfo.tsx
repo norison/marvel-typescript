@@ -38,7 +38,7 @@ const CharInfo: React.FC<CharInfoProps> = ({ character }) => {
         <div className="char-info__descr">{character.description}</div>
         <div className="char-info__title">Comics:</div>
         <ul className="char-info__list">
-          {character.comics.map((comic, index) => {
+          {character.comics.slice(0, 10).map((comic, index) => {
             const comicId = comic.resourceURI.split("/").slice(-1);
             return (
               <li key={index} className="char-info__item">

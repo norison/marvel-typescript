@@ -26,6 +26,20 @@ export const useMarvelService = () => {
     return characters;
   };
 
+  const getCharacterByName = async (name: string) => {
+    let character: MarvelCharacter | null = null;
+
+    try {
+      enableLoading();
+      character = await marvelService.getCharacterByName(name);
+      disableLoading();
+    } catch {
+      enableError();
+    }
+
+    return character;
+  };
+
   const getCharacter = async (id: number) => {
     let character: MarvelCharacter | undefined;
 
@@ -82,5 +96,5 @@ export const useMarvelService = () => {
     setLoading(false);
   };
 
-  return { loading, error, getCharacters, getCharacter, getComics, getComic };
+  return { loading, error, getCharacters, getCharacter, getCharacterByName, getComics, getComic };
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MarvelCharacter } from "../../../../services/MarvelService";
+import SearchForm from "../../../SearchForm/SearchForm";
 import CharInfo from "../CharInfo/CharInfo";
 import CharList from "../CharList/CharList";
 
@@ -15,7 +16,10 @@ const CharContent: React.FC = () => {
   return (
     <section className="char-content">
       <CharList onCharacterSelect={characterSelectHandler} />
-      <CharInfo character={character!} />
+      <div>
+        <CharInfo character={character!} />
+        <SearchForm />
+      </div>
     </section>
   );
 };
