@@ -8,6 +8,7 @@ import { useMarvelService } from "../../../../hooks/marvel.hook";
 import { MarvelComic } from "../../../../services/MarvelService";
 import Spinner from "../../../Spinner/Spinner";
 import ErrorMessage from "../../../ErrorMessage/ErrorMessge";
+import { Helmet } from "react-helmet";
 
 interface ViewProps {
   comic: MarvelComic;
@@ -50,19 +51,25 @@ const View: React.FC<ViewProps> = ({ comic }) => {
     comic.pageCount === 0 ? "There is no pages" : `${comic.pageCount} pages`;
 
   return (
-    <div className="single__grid">
-      <img src={comic.thumbnail} alt="comic" className="single__img"></img>
-      <div className="single__info">
-        <div className="single__title">{comic.title}</div>
-        <div className="single__descr">{description}</div>
-        <div className="single__pages">{pages}</div>
-        <div className="single__lang">Language: en-us</div>
-        <div className="single__price">{price}</div>
+    <>
+      <Helmet>
+        <meta name="description" content={comic.title} />
+        <title>{comic.title}</title>
+      </Helmet>
+      <div className="single__grid">
+        <img src={comic.thumbnail} alt="comic" className="single__img"></img>
+        <div className="single__info">
+          <div className="single__title">{comic.title}</div>
+          <div className="single__descr">{description}</div>
+          <div className="single__pages">{pages}</div>
+          <div className="single__lang">Language: en-us</div>
+          <div className="single__price">{price}</div>
+        </div>
+        <Link to="/comics" className="single__link">
+          Back to all
+        </Link>
       </div>
-      <Link to="/comics" className="single__link">
-        Back to all
-      </Link>
-    </div>
+    </>
   );
 };
 
